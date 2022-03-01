@@ -4,6 +4,7 @@
     "module": "ESNext",
     "outDir": "build",
     "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "include": ["src/*"],
   "exclude": ["node_modules"]

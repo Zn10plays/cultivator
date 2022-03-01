@@ -13,7 +13,9 @@ async function buildDir(start) {
 
   await esbuild.buildSync({
     entryPoints: files,
-    outdir: path.join('./build', relativePath.replace('src', ''))
+    outdir: path.join('./build', relativePath.replace('src', '')),
+    // target: 'es2016',
+    format: 'cjs'
   })
 
   for (let i = 0; i < dirs.length; i++) {
