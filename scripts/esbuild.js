@@ -14,7 +14,7 @@ async function buildDir(start) {
   await esbuild.buildSync({
     entryPoints: files,
     outdir: path.join('./build', relativePath.replace('src', '')),
-    // target: 'es2016',
+    target: 'es2020',
     format: 'cjs'
   })
 
@@ -24,4 +24,15 @@ async function buildDir(start) {
   }
 }
 
-buildDir()
+function delBuild() {
+  return new Promise(resolve => {
+    if (fs.readdirSync('./').includes('build')) {
+      fs.rm(path.resolve('./', 'build'), {recursive: true}, resolve)
+    }
+  })
+}
+
+(async () => {
+  await delBuild()
+  await buildDir()
+}) ()
