@@ -27,6 +27,7 @@
   "dependencies": {
     "esbuild": "^0.14.23",
     "express": "^4.17.3",
+    "minecraft-data": "^2.114.0",
     "mineflayer": "^4.0.0",
     "mineflayer-pathfinder": "^1.9.1",
     "mineflayer-statemachine": "^1.6.5"
