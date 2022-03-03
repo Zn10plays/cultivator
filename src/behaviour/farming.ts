@@ -1,8 +1,9 @@
-import { BehaviorEquipItem, BehaviorMoveTo } from 'mineflayer-statemachine'
+import { BehaviorEquipItem, BehaviorMoveTo, StateTransition, BehaviorFindBlock } from 'mineflayer-statemachine'
 import { Bot } from 'mineflayer'
 
-function FarmingBehavior(bot: Bot, target) {
-
+function FarmingBehavior(bot, state) {
+  const target = {}
+  const findBlock = new BehaviorFindBlock(bot, target)
 }
 
 export default FarmingBehavior
