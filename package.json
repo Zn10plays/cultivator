@@ -1,13 +1,14 @@
 {
+  "dependencies": {
+    "mineflayer": "^4.3.0"
+  },
   "name": "cultivator",
-  "version": "1.0.0",
   "description": "A Minecraft Bot, created with the soul purpose of automating farming and grinding AFK.",
+  "version": "1.0.0",
   "main": "index.js",
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node build/index.js",
-    "dev": "node ./scripts/esbuild.js && node ./build/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -19,17 +20,5 @@
   "bugs": {
     "url": "https://github.com/Zn10plays/cultivator/issues"
   },
-  "homepage": "https://github.com/Zn10plays/cultivator#readme",
-  "devDependencies": {
-    "@types/node": "^17.0.21",
-    "typescript": "^4.5.5"
-  },
-  "dependencies": {
-    "esbuild": "^0.14.23",
-    "express": "^4.17.3",
-    "minecraft-data": "^2.114.0",
-    "mineflayer": "^4.0.0",
-    "mineflayer-pathfinder": "^1.9.1",
-    "mineflayer-statemachine": "^1.6.5"
-  }
+  "homepage": "https://github.com/Zn10plays/cultivator#readme"
 }
