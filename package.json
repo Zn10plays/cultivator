@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "mineflayer": "^4.3.0"
+    "mineflayer": "^4.3.0",
+    "mineflayer-pathfinder": "^2.0.0"
   },
   "name": "cultivator",
   "description": "A Minecraft Bot, created with the soul purpose of automating farming and grinding AFK.",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
