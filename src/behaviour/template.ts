@@ -1,10 +1,24 @@
-class Behaviour {
-  stateName: string
-  currentState: {}
+import { Block } from 'prismarine-block'
+import { Bot } from "mineflayer";
+import { Item } from "prismarine-item";
 
-  public constructor(name, state) {
+class Behaviour {
+  stateName: string;
+  currentState: {
+    targetBlock:  Block[],
+    targetPlayer: {}[],
+    targetItem:  string[],
+  };
+  bot: Bot;
+
+  public constructor(name, state, bot: Bot) {
     this.stateName = name;
     this.currentState = state;
+    this.bot = bot;
+  }
+
+  public hasRequirements() {
+    return true;
   }
 
   public execute() {
@@ -18,7 +32,6 @@ class Behaviour {
       resolve(true);
     })
   }
-
   
   public get name(): string {
     return this.stateName
@@ -28,3 +41,5 @@ class Behaviour {
     return this.currentState;
   }
 }
+
+export default Behaviour;
