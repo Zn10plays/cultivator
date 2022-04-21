@@ -9,7 +9,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./scripts/dev.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Zn10plays/cultivator/issues"
   },
-  "homepage": "https://github.com/Zn10plays/cultivator#readme"
+  "homepage": "https://github.com/Zn10plays/cultivator#readme",
+  "devDependencies": {
+    "minecraft-wrap": "^1.4.0"
+  }
 }
