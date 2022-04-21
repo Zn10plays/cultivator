@@ -19,18 +19,18 @@ const SERVER_OPTIONS = {
   'port': '25565',
   'minMem': '4G',
   'maxMem': '4g'
-}
+} // yes i have a cool pc
 
-async function main() {
+async function startServer() {
   if ((await fs.readdir('./')).includes('server')) {
-    if ((await fs.readdir(SERVER_PATH)).includes(FILE_Name)) {
-      runServer();
+    if (!(await fs.readdir(SERVER_PATH)).includes(FILE_Name)) {
+      await download();
     }
   } else {
     await fs.mkdir('./server') 
-    await downloadServer();
-    runServer();
+    await downloadServer(); 
   }
+  runServer();
 }
 
 function downloadServer() {
@@ -45,4 +45,4 @@ function runServer() {
   wrap.startServer(SERVER_OPTIONS, (err) => {console.log(err)})
 }
 
-main();
+startServer();

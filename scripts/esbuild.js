@@ -25,14 +25,24 @@ async function buildDir(start) {
 }
 
 function delBuild() {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     if (fs.readdirSync('./').includes('build')) {
-      fs.rm(path.resolve('./', 'build'), {recursive: true}, resolve)
+      fs.rm(path.resolve('./', 'build/*'), {recursive: true}, (e) => {
+        if (e)
+          reject(e)
+        else
+          resolve();
+      })
+    } else {
+      fs.mkdir('./build', resolve)
     }
   })
 }
 
-(async () => {
-  await delBuild()
-  await buildDir()
+(() => {
+  delBuild()
+  .then(buildDir)
+  .catch(e => {
+    console.log(e)
+  })
 }) ()

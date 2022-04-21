@@ -10,7 +10,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node ./scripts/dev.js"
+    "dev": "node ./scripts/esbuild.js && node ./build/index.js",
+    "server": "node ./scripts/server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/Zn10plays/cultivator#readme",
   "devDependencies": {
+    "esbuild": "^0.14.37",
     "minecraft-wrap": "^1.4.0"
   }
 }
