@@ -10,7 +10,7 @@ class Cultivator {
       password: process.env.MCPASSWORD,
       host: 'localhost',
     })
-
+    
     bot.loadPlugins([pathfinder]);
   }
 
