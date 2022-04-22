@@ -1,5 +1,6 @@
 import { createBot, Bot } from 'mineflayer';
 import { pathfinder } from 'mineflayer-pathfinder';
+import loadAllStates from './manager';
 
 class Cultivator {
   bot: Bot;
@@ -12,6 +13,8 @@ class Cultivator {
     })
     
     bot.loadPlugins([pathfinder]);
+
+    loadAllStates(bot);
   }
 
   public terminate() {
