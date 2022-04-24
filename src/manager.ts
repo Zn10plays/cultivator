@@ -1,5 +1,5 @@
 import { Bot } from 'mineflayer';
-import { BehaviorIdle, NestedStateMachine, StateMachineTargets, StateTransition } from 'mineflayer-statemachine'
+import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
 import createMineState from './states/mine';
 
 export default function loadAllStates (bot: Bot) {
@@ -24,5 +24,25 @@ export default function loadAllStates (bot: Bot) {
     })
   ];
 
-  const stateMachine = new NestedStateMachine(transitions, idle, idle);
+  bot.once('spawn', () => {
+    bot.on('chat', (username, message) => {
+      if (username !== 'Mock2ek' || !message.startsWith('!')) return;
+
+      switch (message) {
+        case '!mine':
+          transitions[0].trigger();          
+          break;
+        case '!stop': 
+        transitions[1].trigger()
+        break;
+        default:
+          break;
+      }
+    })
+  })
+
+  const root = new NestedStateMachine(transitions, idle);
+  const stateMachine = new BotStateMachine(bot, root);
+  const webServer = new StateMachineWebserver(bot, stateMachine);
+  webServer.startServer();
 }

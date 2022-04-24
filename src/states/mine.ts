@@ -1,4 +1,4 @@
-import { BehaviorEquipItem, 
+import {
   BehaviorFindBlock, 
   BehaviorIdle, 
   NestedStateMachine, 
@@ -9,25 +9,26 @@ import { BehaviorEquipItem,
   BehaviorGetClosestEntity,
   EntityFilters,
   BehaviorFollowEntity
-} from 'mineflayer-statemachine'
+} from 'mineflayer-statemachine';
 import MinecraftData from 'minecraft-data';
 import { Bot } from 'mineflayer';
 
 
 function createMineState(bot: Bot, targets: StateMachineTargets): NestedStateMachine {
-  const mcData = MinecraftData(bot.version)
+  const mcData = MinecraftData(bot.version);
 
   const enter = new BehaviorIdle();
   enter.stateName = 'MainState';
 
-  const findOre = new BehaviorFindBlock(bot, targets)
-  findOre.blocks = mcData.blocksArray.filter(block => block.name.includes('ore')).map(block => block.id);
+  const findOre = new BehaviorFindBlock(bot, targets);
+  findOre.stateName = 'Find The Ore'
   findOre.maxDistance = 20;
+  findOre.blocks = mcData.blocksArray.filter(block => block.name.includes('ore')).map(block => block.id);
 
-  const move = new BehaviorMoveTo(bot, targets) 
+  const move = new BehaviorMoveTo(bot, targets);
   move.stateName = 'Move To Ore';
 
-  const mine = new BehaviorMineBlock(bot, targets)
+  const mine = new BehaviorMineBlock(bot, targets);
   mine.stateName = 'Mine The Ore';
 
   const findDrop = new BehaviorGetClosestEntity(bot, targets, EntityFilters().ItemDrops);
@@ -35,6 +36,8 @@ function createMineState(bot: Bot, targets: StateMachineTargets): NestedStateMac
 
   const moveToDrop = new BehaviorFollowEntity(bot, targets);
   moveToDrop.stateName = 'collect the drop';
+
+  const exit = enter;
 
   const transitions: StateTransition[] = [
     new StateTransition({
@@ -46,7 +49,13 @@ function createMineState(bot: Bot, targets: StateMachineTargets): NestedStateMac
     new StateTransition({
       parent: findOre,
       child: move,
-      shouldTransition: () => !(targets.position == null) && !(targets.item == null)
+      shouldTransition: () => !(targets.position == null)
+    }),
+
+    new StateTransition({
+      parent: findOre,
+      child: enter,
+      shouldTransition: () => targets.position == null
     }),
 
     new StateTransition({
@@ -68,13 +77,19 @@ function createMineState(bot: Bot, targets: StateMachineTargets): NestedStateMac
     }),
 
     new StateTransition({
+      parent: findDrop,
+      child: exit,
+      shouldTransition: () => !!targets.entity?.position
+    }),
+
+    new StateTransition({
       parent: moveToDrop,
-      child: enter,
-      shouldTransition: () => false
+      child: exit,
+      shouldTransition: () => moveToDrop.distanceToTarget() > 1
     })
   ]
 
-  const stateMachine = new NestedStateMachine(transitions, enter, enter)
+  const stateMachine = new NestedStateMachine(transitions, enter, exit)
   stateMachine.stateName = 'Mine State'
   return stateMachine;
 }

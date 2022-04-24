@@ -9,7 +9,9 @@ class Cultivator {
     const bot = createBot({
       username: process.env.MCUSERNAME,
       password: process.env.MCPASSWORD,
+      auth: 'microsoft',
       host: 'localhost',
+      version: '1.18.2'
     })
     
     bot.loadPlugins([pathfinder]);
